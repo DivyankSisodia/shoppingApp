@@ -9,9 +9,10 @@ import 'package:shopping/views/home_page.dart';
 class DetailsPage extends ConsumerWidget {
   DetailsPage({
     super.key,
+    required this.getIndex,
   });
 
-  int getIndex = 7;
+  int getIndex;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,7 +94,7 @@ class DetailsPage extends ConsumerWidget {
                         onRatingUpdate: (value) {},
                       ),
                       const Gap(20),
-                      Text(product[getIndex].review.toString() + ' Reviews'),
+                      Text('${product[getIndex].review} Reviews'),
                     ],
                   ),
                   const Gap(10),
@@ -109,7 +110,7 @@ class DetailsPage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${product[getIndex].price}',
+                        '\$${(product[getIndex].price * product[getIndex].quantity).clamp(0, double.infinity)}',
                         style: AppTheme.kBigTitle.copyWith(
                           color: kPrimaryColor,
                         ),
@@ -118,7 +119,11 @@ class DetailsPage extends ConsumerWidget {
                         child: Row(
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ref
+                                    .read(productNotifierProvider.notifier)
+                                    .decreasetQty(product[getIndex].pid);
+                              },
                               icon: const Icon(
                                 Icons.do_not_disturb_on_outlined,
                                 color: kPrimaryColor,
@@ -133,7 +138,11 @@ class DetailsPage extends ConsumerWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ref
+                                    .read(productNotifierProvider.notifier)
+                                    .incrementQty(product[getIndex].pid);
+                              },
                               icon: const Icon(
                                 Icons.add_circle_outline,
                                 color: kPrimaryColor,

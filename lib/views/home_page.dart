@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shopping/constants/theme.dart';
+import 'package:shopping/views/details_page.dart';
 import 'package:shopping/widget/card_widget.dart';
 import 'package:shopping/widget/chip_widget.dart';
 
@@ -119,19 +120,27 @@ class HomePage extends ConsumerWidget {
 
               MasonryGridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: products.length,
+                itemCount: products.length - 3,
                 shrinkWrap: true,
                 gridDelegate:
                     const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
-                itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  height: 270,
-                  child: ProductCardWidget(
-                    productIndex: index,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailsPage(
+                                getIndex: index + 3,
+                              ))),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    height: 270,
+                    child: ProductCardWidget(
+                      productIndex: index + 3,
+                    ),
                   ),
                 ),
               )

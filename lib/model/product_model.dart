@@ -22,4 +22,30 @@ class ProductModel {
     this.isSelected = false,
     this.quantity = 1,
   });
+
+  ProductModel copyWith({
+    int? pid,
+    String? imgUrl,
+    String? title,
+    double? price,
+    String? shortDescription,
+    String? longDescription,
+    int? review,
+    double? rating,
+    bool? isSelected,
+    int? quantity,
+  }) {
+    return ProductModel(
+      pid: pid ?? this.pid,
+      imgUrl: imgUrl ?? this.imgUrl,
+      title: title ?? this.title,
+      price: price ?? this.price,
+      shortDescription: shortDescription ?? this.shortDescription,
+      longDescription: longDescription ?? this.longDescription,
+      review: review ?? this.review,
+      rating: rating ?? this.rating,
+      isSelected: isSelected ?? this.isSelected,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }
