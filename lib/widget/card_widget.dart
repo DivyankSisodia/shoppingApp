@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:shopping/model/product_model.dart';
 
 import '../constants/theme.dart';
+import '../controller/itembag_controller.dart';
 import '../controller/product_controller.dart';
 
 class ProductCardWidget extends ConsumerWidget {
@@ -66,8 +68,40 @@ class ProductCardWidget extends ConsumerWidget {
                       style: AppTheme.kCardText,
                     ),
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add_circle),
+                      onPressed: () {
+                        ref
+                            .read(productNotifierProvider.notifier)
+                            .isSelectedItem(
+                              product[productIndex].pid,
+                              productIndex,
+                            );
+                        if (product[productIndex].isSelected == false) {
+                          ref
+                              .read(itemBagProvider.notifier)
+                              .addNewItemsBag(ProductModel(
+                                pid: product[productIndex].pid,
+                                imgUrl: product[productIndex].imgUrl,
+                                title: product[productIndex].title,
+                                price: product[productIndex].price,
+                                shortDescription:
+                                    product[productIndex].shortDescription,
+                                longDescription:
+                                    product[productIndex].longDescription,
+                                review: product[productIndex].review,
+                                rating: product[productIndex].rating,
+                              ));
+                        } else {
+                          ref
+                              .read(itemBagProvider.notifier)
+                              .removeItemBag(product[productIndex].pid);
+                        }
+                        print(product[productIndex].isSelected);
+                      },
+                      icon: Icon(
+                        product[productIndex].isSelected
+                            ? Icons.check_circle
+                            : Icons.add_circle,
+                      ),
                     ),
                   ],
                 )

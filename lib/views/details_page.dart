@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:shopping/constants/theme.dart';
 import 'package:shopping/controller/product_controller.dart';
+import 'package:shopping/views/cart_page.dart';
 import 'package:shopping/views/home_page.dart';
 
 class DetailsPage extends ConsumerWidget {
@@ -30,8 +31,8 @@ class DetailsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSecondaryColor,
-        title: const Text(
-          'Details Page',
+        title: Text(
+          product[getIndex].title,
           style: AppTheme.kBigTitle,
         ),
         actions: [
@@ -163,6 +164,11 @@ class DetailsPage extends ConsumerWidget {
                       ),
                     ),
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CartPage()),
+                      );
                       debugPrint('hawla h kya re');
                     },
                     child: const Text(

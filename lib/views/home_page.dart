@@ -4,6 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shopping/constants/theme.dart';
+import 'package:shopping/controller/itembag_controller.dart';
+import 'package:shopping/views/cart_page.dart';
 import 'package:shopping/views/details_page.dart';
 import 'package:shopping/widget/card_widget.dart';
 import 'package:shopping/widget/chip_widget.dart';
@@ -22,6 +24,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(productNotifierProvider);
     final currentIndex = ref.watch(currentIndexProvider);
+    final itemBag = ref.watch(itemBagProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSecondaryColor,
@@ -32,10 +35,23 @@ class HomePage extends ConsumerWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.local_mall),
+            padding: const EdgeInsets.only(right: 20.0, top: 10),
+            child: Badge(
+              label: Text(
+                itemBag.length.toString(),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartPage()));
+                },
+                icon: const Icon(
+                  Icons.local_mall,
+                  size: 24,
+                ),
+              ),
             ),
           ),
         ],
