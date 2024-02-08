@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping/views/cart_page.dart';
 import 'package:shopping/views/home_page.dart';
+import 'package:shopping/widget/animated_swipe.dart';
 
 import 'views/details_page.dart';
 

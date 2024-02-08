@@ -116,41 +116,39 @@ class DetailsPage extends ConsumerWidget {
                           color: kPrimaryColor,
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(productNotifierProvider.notifier)
-                                    .decreasetQty(product[getIndex].pid);
-                              },
-                              icon: const Icon(
-                                Icons.do_not_disturb_on_outlined,
-                                color: kPrimaryColor,
-                              ),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(productNotifierProvider.notifier)
+                                  .decreasetQty(product[getIndex].pid);
+                            },
+                            icon: const Icon(
+                              Icons.do_not_disturb_on_outlined,
+                              color: kPrimaryColor,
                             ),
-                            Text(
-                              product[getIndex].quantity.toString(),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                color: kPrimaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          ),
+                          Text(
+                            product[getIndex].quantity.toString(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
-                            IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(productNotifierProvider.notifier)
-                                    .incrementQty(product[getIndex].pid);
-                              },
-                              icon: const Icon(
-                                Icons.add_circle_outline,
-                                color: kPrimaryColor,
-                              ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(productNotifierProvider.notifier)
+                                  .incrementQty(product[getIndex].pid);
+                            },
+                            icon: const Icon(
+                              Icons.add_circle_outline,
+                              color: kPrimaryColor,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       )
                     ],
                   ),

@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-
+import 'package:page_transition/page_transition.dart';
+import 'package:shopping/views/payment.dart';
 import '../constants/theme.dart';
 import '../controller/itembag_controller.dart';
+import '../widget/animated_swipe.dart';
+
+final couponCodeControllerProvider = Provider<TextEditingController>((ref) {
+  return TextEditingController();
+});
+
+final buttonTextProvider = Provider<String>((ref) {
+  final text = ref.watch(couponCodeControllerProvider).text;
+  return text == 'hello' ? 'Available' : 'Apply';
+});
+
+final isFinishedProvider = StateProvider<bool>((ref) => false); // New provider
 
 class CartPage extends ConsumerWidget {
-  const CartPage({super.key});
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemBag = ref.watch(itemBagProvider);
+    double total = ref.watch(priceCalcProvider) -
+        9.9 -
+        (ref.watch(priceCalcProvider) * 0.25);
+    total = (total < 0) ? 0 : total;
+
+    final isFinished = ref.watch(isFinishedProvider); // New
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSecondaryColor,
-        title: Text(
+        title: const Text(
           'MyCart',
           style: AppTheme.kBigTitle,
         ),
@@ -62,12 +82,12 @@ class CartPage extends ConsumerWidget {
                                     itemBag[index].title,
                                     style: AppTheme.kCardText,
                                   ),
-                                  const Gap(6),
+                                  const SizedBox(height: 6),
                                   Text(
                                     itemBag[index].shortDescription,
                                     style: AppTheme.kBodyText,
                                   ),
-                                  const Gap(5),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       Text(
@@ -90,16 +110,15 @@ class CartPage extends ConsumerWidget {
           ),
           Expanded(
             flex: 3,
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
-              // color: Colors.pink,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('have a coupon code? enter here:'),
-                    const Gap(10),
+                    const Text('Have a coupon code? Enter here:'),
+                    const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       height: 60,
@@ -111,10 +130,12 @@ class CartPage extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             flex: 4,
                             child: TextField(
-                              decoration: InputDecoration(
+                              controller:
+                                  ref.read(couponCodeControllerProvider),
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Enter coupon code',
                               ),
@@ -122,29 +143,49 @@ class CartPage extends ConsumerWidget {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'Apply',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Handle button tap
+                                final couponCode = ref
+                                    .watch(couponCodeControllerProvider)
+                                    .text;
+                                if (couponCode == 'hello') {
+                                  // Coupon code is available
+                                  // Add your logic here
+                                  debugPrint('Coupon code is available');
+                                } else {
+                                  // Coupon code is not available
+                                  // Add your logic here
+                                  debugPrint('Coupon code is not available');
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: kPrimaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: isFinished
+                                      ? const Icon(Icons.check,
+                                          color: Colors.green)
+                                      : Text(
+                                          ref.watch(buttonTextProvider),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
-                    const Gap(10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Subtotal',
                           style: AppTheme.kHeadingOne,
                         ),
@@ -154,7 +195,7 @@ class CartPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const Gap(8),
+                    const SizedBox(height: 8),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -168,7 +209,7 @@ class CartPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const Gap(8),
+                    const SizedBox(height: 8),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -182,7 +223,7 @@ class CartPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const Gap(8),
+                    const SizedBox(height: 8),
                     const Divider(
                       color: Colors.grey,
                     ),
@@ -198,15 +239,17 @@ class CartPage extends ConsumerWidget {
                           ),
                         ),
                         Text(
-                          '\$${ref.watch(priceCalcProvider) - 9.9 - (ref.watch(priceCalcProvider) * 0.25)}',
+                          '\$${total.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             color: kPrimaryColor,
                           ),
-                        ),
+                        )
                       ],
                     ),
+                    const Gap(20),
+                    const SizedBox(height: 100, child: AnimationSwipe()),
                   ],
                 ),
               ),

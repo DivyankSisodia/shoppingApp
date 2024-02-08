@@ -111,8 +111,16 @@ class HomePage extends ConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) =>
-                        ProductCardWidget(
-                      productIndex: index,
+                        GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailsPage(
+                                    getIndex: index,
+                                  ))),
+                      child: ProductCardWidget(
+                        productIndex: index,
+                      ),
                     ),
                   ),
                 ),
