@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shopping/views/payment.dart';
 import '../constants/theme.dart';
 import '../controller/itembag_controller.dart';
 import '../widget/animated_swipe.dart';
@@ -114,143 +112,145 @@ class CartPage extends ConsumerWidget {
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Have a coupon code? Enter here:'),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.shade200,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: TextField(
-                              controller:
-                                  ref.read(couponCodeControllerProvider),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Enter coupon code',
-                              ),
-                            ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Have a coupon code? Enter here:'),
+                      const SizedBox(height: 10),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey.shade200,
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () {
-                                // Handle button tap
-                                final couponCode = ref
-                                    .watch(couponCodeControllerProvider)
-                                    .text;
-                                if (couponCode == 'hello') {
-                                  // Coupon code is available
-                                  // Add your logic here
-                                  debugPrint('Coupon code is available');
-                                } else {
-                                  // Coupon code is not available
-                                  // Add your logic here
-                                  debugPrint('Coupon code is not available');
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Center(
-                                  child: isFinished
-                                      ? const Icon(Icons.check,
-                                          color: Colors.green)
-                                      : Text(
-                                          ref.watch(buttonTextProvider),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: TextField(
+                                controller:
+                                    ref.read(couponCodeControllerProvider),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Enter coupon code',
                                 ),
                               ),
                             ),
+                            Expanded(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () {
+                                  // Handle button tap
+                                  final couponCode = ref
+                                      .watch(couponCodeControllerProvider)
+                                      .text;
+                                  if (couponCode == 'hello') {
+                                    // Coupon code is available
+                                    // Add your logic here
+                                    debugPrint('Coupon code is available');
+                                  } else {
+                                    // Coupon code is not available
+                                    // Add your logic here
+                                    debugPrint('Coupon code is not available');
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: kPrimaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: isFinished
+                                        ? const Icon(Icons.check,
+                                            color: Colors.green)
+                                        : Text(
+                                            ref.watch(buttonTextProvider),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Subtotal',
+                            style: AppTheme.kHeadingOne,
+                          ),
+                          Text(
+                            '\$${ref.watch(priceCalcProvider)}',
+                            style: AppTheme.kHeadingOne,
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Subtotal',
-                          style: AppTheme.kHeadingOne,
-                        ),
-                        Text(
-                          '\$${ref.watch(priceCalcProvider)}',
-                          style: AppTheme.kHeadingOne,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Delivery fee',
-                          style: AppTheme.kCardText,
-                        ),
-                        Text(
-                          '\$9.9',
-                          style: AppTheme.kCardText,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Discount',
-                          style: AppTheme.kCardText,
-                        ),
-                        Text(
-                          '25%',
-                          style: AppTheme.kCardText,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Divider(
-                      color: Colors.grey,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Total',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor,
+                      const SizedBox(height: 8),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Delivery fee',
+                            style: AppTheme.kCardText,
                           ),
-                        ),
-                        Text(
-                          '\$${total.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor,
+                          Text(
+                            '\$9.9',
+                            style: AppTheme.kCardText,
                           ),
-                        )
-                      ],
-                    ),
-                    const Gap(20),
-                    const SizedBox(height: 100, child: AnimationSwipe()),
-                  ],
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Discount',
+                            style: AppTheme.kCardText,
+                          ),
+                          Text(
+                            '25%',
+                            style: AppTheme.kCardText,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      const Divider(
+                        color: Colors.grey,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor,
+                            ),
+                          ),
+                          Text(
+                            '\$${total.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      const Gap(20),
+                      const SizedBox(height: 100, child: AnimationSwipe()),
+                    ],
+                  ),
                 ),
               ),
             ),

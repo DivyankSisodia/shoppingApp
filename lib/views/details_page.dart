@@ -7,6 +7,7 @@ import 'package:shopping/controller/product_controller.dart';
 import 'package:shopping/views/cart_page.dart';
 import 'package:shopping/views/home_page.dart';
 
+// ignore: must_be_immutable
 class DetailsPage extends ConsumerWidget {
   DetailsPage({
     super.key,

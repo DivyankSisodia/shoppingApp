@@ -14,7 +14,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     startAnimation();
   }
 
