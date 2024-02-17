@@ -98,7 +98,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     setState(() {
       animate = true;
     });
-    await Future.delayed(const Duration(milliseconds: 3200));
+    await Future.delayed(const Duration(milliseconds: 3000));
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const HomePage()));

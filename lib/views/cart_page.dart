@@ -150,7 +150,6 @@ class CartPage extends ConsumerWidget {
                                       .text;
                                   if (couponCode == 'hello') {
                                     // Coupon code is available
-                                    // Add your logic here
                                     debugPrint('Coupon code is available');
                                   } else {
                                     // Coupon code is not available

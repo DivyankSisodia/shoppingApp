@@ -111,7 +111,7 @@ class HomePage extends ConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) =>
-                      GestureDetector(
+                        GestureDetector(
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -154,11 +154,13 @@ class HomePage extends ConsumerWidget {
                 ),
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailsPage(
-                                getIndex: index + 3,
-                              ))),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsPage(
+                        getIndex: index + 3,
+                      ),
+                    ),
+                  ),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
