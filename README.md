@@ -1,16 +1,17 @@
 # shopping
 
-A new Flutter project.
+Developed a Flutter shopping app utilizing local JSON data for product listings, categories, prices, and user interactions seamlessly.
 
-## Getting Started
+## Tech Stack
 
-This project is a starting point for a Flutter application.
+**Client:** Dart, Flutter, Firebase
 
-A few resources to get you started if this is your first Flutter project:
+**Features:** Google SignIn, Apple SignIn, fetching local Json Data, RazorPay integration
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📱Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.31.13.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.28.08.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.31.56.png)
+:-------------------------:|:-------------------------:|:---------------------:
+![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.33.16.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.33.31.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.36.48.png)
+:-------------------------:|:-------------------------:|:---------------------:
+![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.37.43.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2008.38.04.png)|![](https://github.com/DivyankSisodia/shoppingApp/blob/master/assets/screens/Simulator%20Screenshot%20-%20iPhone%2015%20Plus%20-%202024-02-17%20at%2009.01.23.png)
