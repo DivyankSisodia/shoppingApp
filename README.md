@@ -4,9 +4,9 @@ Developed a Flutter shopping app utilizing local JSON data for product listings,
 
 ## Tech Stack
 
-**Client:** Dart, Flutter, Firebase
+**Client:** Dart, Flutter, Local Json Data
 
-**Features:** Google SignIn, Apple SignIn, fetching local Json Data, RazorPay integration
+**Features:** Animated OnBoarding screen, Beautiful UI , RazorPay integration
 
 ## 📱Screenshots
 
